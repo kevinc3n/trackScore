@@ -1,0 +1,24 @@
+/* custom-scrollbar.css */
+
+/* Customize the scrollbar */
+body::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  /* Track */
+  body::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+  }
+  
+  /* Thumb */
+  body::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+  }
+  
+  /* On hover, the thumb will be darker */
+  body::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+  
