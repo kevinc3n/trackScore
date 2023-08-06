@@ -13,6 +13,7 @@ const righteous = Righteous({
 });
 
 /* TODO: RETRIEVE UNIQUE ID'S */
+/* TODO: ADD MODAL WHEN USER SELECTS A SEARCH TILE */
 
 function SearchBar() {
   const [query, setQuery] = useState('');
