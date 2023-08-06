@@ -12,6 +12,8 @@ const righteous = Righteous({
   weight: '400',
 });
 
+/* TODO: RETRIEVE UNIQUE ID'S */
+
 function SearchBar() {
   const [query, setQuery] = useState('');
   const [songs, setSongs] = useState([]);
