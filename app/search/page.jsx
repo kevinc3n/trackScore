@@ -5,15 +5,12 @@ import Typography from '@mui/material/Typography';
 import SearchIcon from '@mui/icons-material/Search';
 import SearchPanel from '../../components/search_panel.jsx';
 import SwiperComponent from '../../components/swiperComponent.js';
-import searchSpotify from '../../api/spotify.js';
+import { searchSpotify } from '../../api/spotify.js';
 
 const righteous = Righteous({
   subsets: ['latin'],
   weight: '400',
 });
-
-/* TODO: RETRIEVE UNIQUE ID'S */
-/* TODO: ADD MODAL WHEN USER SELECTS A SEARCH TILE */
 
 function SearchBar() {
   const [query, setQuery] = useState('');
@@ -33,8 +30,11 @@ function SearchBar() {
         if (searchResults.tracks?.items) {
           console.log('Songs:');
           const songData = searchResults.tracks.items.map((track) => ({
+            id: track.id,
             name: track.name,
             imageUrl: track.album?.images[0]?.url,
+            artist: track.artists[0]?.name,
+            year: track.album?.release_date.slice(0, 4),
           }));
           console.log(songData);
           setSongs(songData);
@@ -43,8 +43,11 @@ function SearchBar() {
         if (searchResults.albums?.items) {
           console.log('Albums:');
           const albumData = searchResults.albums.items.map((album) => ({
+            id: album.id,
             name: album.name,
             imageUrl: album.images[0]?.url,
+            artist: album.artists[0]?.name,
+            year: album.release_date.slice(0, 4),
           }));
           console.log(albumData);
           setAlbums(albumData);
@@ -53,6 +56,7 @@ function SearchBar() {
         if (searchResults.artists?.items) {
           console.log('Artists:');
           const artistData = searchResults.artists.items.map((artist) => ({
+            id: artist.id,
             name: artist.name,
             imageUrl: artist.images[0]?.url,
           }));
@@ -93,8 +97,8 @@ function SearchBar() {
           Search
         </Typography>
       </div>
-  
-      <div style={{ position: 'relative', width: '60%', paddingBottom: '50px'}}>
+    
+      <div style={{ position: 'relative', width: '60%', paddingBottom: '50px' }}>
         <SearchIcon
           style={{
             position: 'absolute',
@@ -121,17 +125,23 @@ function SearchBar() {
           }}
         />
       </div>
-  
+
       {songs.length > 0 && (
-        <SwiperComponent searchPanels={songs.map((song) => <SearchPanel key={song.name} imageUrl={song.imageUrl} tooltipText={song.name} />)} headingText="SONGS" />
+        <SwiperComponent searchPanels={songs.map((song) => (
+          <SearchPanel id={song.id} imageUrl={song.imageUrl} tooltipText={song.name} artist={song.artist} year={song.year} type={"Song"}/>
+        ))} headingText="SONGS" />
       )}
 
       {albums.length > 0 && (
-        <SwiperComponent searchPanels={albums.map((album) => <SearchPanel key={album.name} imageUrl={album.imageUrl} tooltipText={album.name} />)} headingText="ALBUMS" />
+        <SwiperComponent searchPanels={albums.map((album) => (
+          <SearchPanel id={album.id} imageUrl={album.imageUrl} tooltipText={album.name} artist={album.artist} year={album.year} type={"Album"}/>
+        ))} headingText="ALBUMS" />
       )}
 
       {artists.length > 0 && (
-        <SwiperComponent searchPanels={artists.map((artist) => <SearchPanel key={artist.name} imageUrl={artist.imageUrl} tooltipText={artist.name} />)} headingText="ARTISTS" />
+        <SwiperComponent searchPanels={artists.map((artist) => (
+          <SearchPanel id={artist.id} imageUrl={artist.imageUrl} tooltipText={artist.name} artist={"NULL"} year={"NULL"} type={"Artist"}/>
+        ))} headingText="ARTISTS" />
       )}
     </div>
   );

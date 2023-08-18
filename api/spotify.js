@@ -4,7 +4,6 @@ const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID;
 const CLIENT_SECRET = process.env.NEXT_PUBLIC_CLIENT_SECRET;
 
 async function getAccessToken() {
-
   // API ACCESS TOKEN
   const authParameters = {
     method: 'POST',
@@ -21,7 +20,7 @@ async function getAccessToken() {
   return accessToken;
 }
 
-async function searchSpotify(query) {
+export async function searchSpotify(query) {
   try {
     const accessToken = await getAccessToken();
 
@@ -43,5 +42,24 @@ async function searchSpotify(query) {
   }
 }
 
-export default searchSpotify;
+export async function getSong(songId) {
+  try {
+    const accessToken = await getAccessToken();
 
+    const songParameters = {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        'Content-Type': 'application/json'
+      }
+    };
+
+    const response = await fetch(`https://api.spotify.com/v1/tracks/${songId}`, songParameters);
+    const data = await response.json();
+
+    return data;
+  } catch (error) {
+    console.error('Error fetching Spotify song:', error);
+    throw new Error('Internal Server Error');
+  }
+}
