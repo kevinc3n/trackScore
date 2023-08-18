@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  min-height: 100vh;
+}
+
+body {
+  background: linear-gradient(to bottom, rgb(250, 201, 155), rgb(255, 189, 156));
+}
+
+.customAppBar {
+  height: 75px;
+  background-color: #ff9f00;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0px 10px 0 1px rgb(18, 34, 51);
+  border: 5px solid rgb(18, 34, 51);
+}
+
+body::-webkit-scrollbar {
+  width: 15px;
+}
+
+body::-webkit-scrollbar-track {
+  background: rgb(232, 142, 128);
+}
+
+body::-webkit-scrollbar-thumb {
+  background-image: linear-gradient(#FF9F00, #FF7700);
+  border-radius: 10px;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background-image: linear-gradient(#FF7700, #FF5500);
+}
