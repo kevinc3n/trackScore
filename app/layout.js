@@ -11,7 +11,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <Head>
-        <link rel="stylesheet" href="/styles/globals.css" />
+        <link rel="stylesheet" href="/trackscore/styles/globals.css" as="style"/>
       </Head>
       <body>
         <Navbar />
