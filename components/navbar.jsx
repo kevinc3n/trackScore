@@ -27,9 +27,18 @@ const Navbar = () => {
 
   return (
     <div style={{ position: 'sticky', top: 0, zIndex: 1 }}>
-      <AppBar position="static" className="customAppBar">
+        <AppBar
+        position="static"
+        sx={{
+          height: '75px',
+          backgroundColor: '#ff9f00',
+          borderRadius: '0 0 8px 8px',
+          boxShadow: '0px 10px 0 1px rgb(18, 34, 51)',
+          border: '5px solid rgb(18, 34, 51)',
+        }}
+      >
         <Toolbar
-          className="righteous-font"
+          className={righteous.className}
           sx={{
             display: 'flex',
             justifyContent: 'space-between',
