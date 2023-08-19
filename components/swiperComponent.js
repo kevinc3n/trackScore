@@ -1,6 +1,6 @@
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/swiper.min.css';
+import 'swiper/css';
 import { Righteous } from '@next/font/google';
 import Typography from '@mui/material/Typography';
 
