@@ -3,7 +3,7 @@ import React from 'react';
 import { Righteous } from '@next/font/google';
 import Typography from '@mui/material/Typography';
 
-const righteous = Righteous({
+const righteousFont = Righteous({
   subsets: ['latin'],
   weight: '400',
 });
@@ -12,13 +12,13 @@ const Page = () => {
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50vh', flexDirection: 'column' }}>
       <div>
-        <Typography variant="h1" align="center" color="#ff3652" className={righteous.className}>
+        <Typography variant="h1" align="center" color="#ff3652" style={righteousFont.style}>
           trackScore.
         </Typography>
       </div>
 
       <div>
-        <Typography variant="h3" color="white" align="center" className={righteous.className}>
+        <Typography variant="h3" color="white" align="center" className={righteousFont.className}>
           An Easy Way to Rate Music.
         </Typography>
       </div>
