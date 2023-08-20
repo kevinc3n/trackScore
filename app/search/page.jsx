@@ -86,18 +86,20 @@ function SearchBar() {
       }}
     >
       <div>
-        <Typography
-          variant="h1"
-          align="center"
-          style={{ color: '#ff3652' }}
-          className={righteous.className}
-          paddingBottom={'30px'}
-          paddingTop={'50px'}
-        >
-          Search
-        </Typography>
+      <Typography
+        variant="h1"
+        align="center"
+        style={{
+          color: '#ff3652',
+          ...righteous.style,
+        }}
+        paddingBottom={'30px'}
+        paddingTop={'50px'}
+      >
+        Search
+      </Typography>
       </div>
-    
+
       <div style={{ position: 'relative', width: '60%', paddingBottom: '50px' }}>
         <SearchIcon
           style={{

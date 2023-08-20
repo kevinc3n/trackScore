@@ -30,7 +30,7 @@ const SidebarPanel = ({ onClick, backgroundColor = '#f78160', text = 'Test', ico
       <Grid container alignItems="center" justifyContent="center" spacing={1}>
         <Grid item>{icon}</Grid>
         <Grid item>
-          <Typography variant="h6" className={righteous.className}>
+          <Typography variant="h6" style={righteous.style}>
             {text}
           </Typography>
         </Grid>

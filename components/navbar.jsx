@@ -38,7 +38,7 @@ const Navbar = () => {
         }}
       >
         <Toolbar
-          className={righteous.className}
+          style={righteous.style}
           sx={{
             display: 'flex',
             justifyContent: 'space-between',
@@ -64,7 +64,7 @@ const Navbar = () => {
             <Link href="/" passHref>
               <Typography
                 variant="h4"
-                className={righteous.className}
+                style={righteous.style}
                 sx={{
                   '&:hover': {
                     color: '#fc4503',

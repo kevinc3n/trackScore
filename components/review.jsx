@@ -62,15 +62,15 @@ const Review = ({ onClick, backgroundColor = 'linear-gradient(to bottom, white, 
               justifyContent: 'center',
             }}
           >
-            <Typography variant="h6" sx={{ textAlign: 'center' }} className={righteous.className}>
+            <Typography variant="h6" sx={{ textAlign: 'center' }} style={righteous.style}>
               IMAGE GOES HERE
             </Typography>
           </Box>
 
-          <Typography variant="h5" sx={{ paddingTop: '20px' }} className={righteous.className}>
+          <Typography variant="h5" sx={{ paddingTop: '20px' }} style={righteous.style}>
             SONG/ALBUM TITLE
           </Typography>
-          <Typography variant="h6" sx={{ paddingTop: '10px', paddingBottom: '20px' }} className={righteous.className}>
+          <Typography variant="h6" sx={{ paddingTop: '10px', paddingBottom: '20px' }} style={righteous.style}>
             ARTIST NAME
           </Typography>
 
@@ -84,7 +84,7 @@ const Review = ({ onClick, backgroundColor = 'linear-gradient(to bottom, white, 
               boxShadow: '8px 8px 0 0 rgb(18, 34, 51)',
             }}
           >
-            <Typography variant="h4" sx={{ paddingTop: '15px', paddingLeft: '10px' }} className={righteous.className}>
+            <Typography variant="h4" sx={{ paddingTop: '15px', paddingLeft: '10px' }} style={righteous.style}>
               0 / 100
             </Typography>
           </Box>
@@ -99,11 +99,11 @@ const Review = ({ onClick, backgroundColor = 'linear-gradient(to bottom, white, 
                 marginRight: '10px',
               }}
             />
-            <Typography variant="h5" className={righteous.className}>
+            <Typography variant="h5" style={righteous.style}>
               USERNAME
             </Typography>
           </Box>
-          <Typography variant="body1" sx={{ paddingTop: '15px' }} className={poppins.className}>
+          <Typography variant="body1" sx={{ paddingTop: '15px' }} style={poppins.style}>
             {truncatedText}
           </Typography>
         </Grid>

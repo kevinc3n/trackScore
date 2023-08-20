@@ -38,7 +38,7 @@ const ReviewBox = () => {
       <Typography
         variant="h4"
         sx={{ alignSelf: 'flex-start', maxWidth: '100%' }}
-        className={righteous.className}
+        style={righteous.style}
       >
         Write a Review
       </Typography>
@@ -84,25 +84,27 @@ const ReviewBox = () => {
           alignItems: 'center',
         }}
       >
-        <TextField
-          value={rating}
-          onChange={handleRatingChange}
-          variant="outlined"
-          size="small"
-          inputProps={{
-            className: righteous.className,
-            style: {
-              width: '50px',
-              textAlign: 'center',
-              fontSize: '30px',
-            },
-          }}
-        />
 
-        <Typography variant="h4" className={righteous.className}>
-          &nbsp;/ 100
-        </Typography>
-      </Box>
+      <TextField
+        value={rating}
+        onChange={handleRatingChange}
+        variant="outlined"
+        size="small"
+        inputProps={{
+          className: righteous.className,
+          style: {
+            ...righteous.style,
+            width: '50px',
+            textAlign: 'center',
+            fontSize: '30px',
+          },
+        }}
+      />
+
+      <Typography variant="h4" style={righteous.style}>
+        &nbsp;/ 100
+      </Typography>
+    </Box>
 
       <div style={{ display: 'flex', justifyContent: 'center', marginTop: '30px' }}>
         <Button

@@ -116,8 +116,6 @@ const SearchPanel = ({ id, imageUrl, tooltipText, artist, year, type }) => {
       <Modal
         open={isModalOpen}
         onClose={handleModalClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
       >
         <Box sx={modalStyle}>
           <Grid container spacing={2}>
@@ -154,7 +152,7 @@ const SearchPanel = ({ id, imageUrl, tooltipText, artist, year, type }) => {
               <Typography
                 variant="h5"
                 component="h2"
-                className={righteous.className}
+                style={righteous.style}
                 sx={{
                   maxWidth: '100%',
                   fontSize: '1.5rem',
