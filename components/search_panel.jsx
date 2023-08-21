@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Box, Typography, Modal, Grid } from '@mui/material';
 import { Righteous } from '@next/font/google';
 import Button from '@mui/material/Button';
@@ -12,6 +12,8 @@ const righteous = Righteous({
 const SearchPanel = ({ id, imageUrl, tooltipText, artist, year, type }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [tapCount, setTapCount] = useState(0);
+  const lastTapTime = useRef(0);
 
   const router = useRouter();
 
@@ -26,9 +28,6 @@ const SearchPanel = ({ id, imageUrl, tooltipText, artist, year, type }) => {
     setIsModalOpen(false);
     setIsHovered(false);
   };
-
-  const handleTouchStart = () => setIsHovered(true);
-  const handleTouchEnd = () => setIsHovered(false);
 
   const defaultImageUrl = '/images/no_image.png';
   const getImageUrl = () => imageUrl || defaultImageUrl;
@@ -57,6 +56,26 @@ const SearchPanel = ({ id, imageUrl, tooltipText, artist, year, type }) => {
     border: '1px solid rgb(18, 34, 51)',
     boxShadow: '10px 10px 0 0 rgb(18, 34, 51)',
     p: 4,
+  };
+
+  const handleTouchStart = () => {
+    const currentTime = new Date().getTime();
+    const timeSinceLastTap = currentTime - lastTapTime.current;
+
+    if (timeSinceLastTap < 300) {
+      setTapCount(tapCount + 1);
+    } else {
+      setTapCount(1);
+    }
+
+    lastTapTime.current = currentTime;
+  };
+
+  const handleTouchEnd = () => {
+    if (tapCount === 2) {
+      handleModalOpen();
+      setTapCount(0);
+    }
   };
 
   return (
