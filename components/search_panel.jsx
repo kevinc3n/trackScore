@@ -27,6 +27,9 @@ const SearchPanel = ({ id, imageUrl, tooltipText, artist, year, type }) => {
     setIsHovered(false);
   };
 
+  const handleTouchStart = () => setIsHovered(true);
+  const handleTouchEnd = () => setIsHovered(false);
+
   const defaultImageUrl = '/images/no_image.png';
   const getImageUrl = () => imageUrl || defaultImageUrl;
   const truncatedTooltipText = tooltipText.length > 30 ? tooltipText.substring(0, 30) + '...' : tooltipText;
@@ -69,6 +72,8 @@ const SearchPanel = ({ id, imageUrl, tooltipText, artist, year, type }) => {
       }}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
     >
       <img
         src={getImageUrl()}

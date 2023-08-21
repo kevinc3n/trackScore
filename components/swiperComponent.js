@@ -14,7 +14,7 @@ const SwiperComponent = ({ searchPanels, headingText }) => {
 
   return (
     <div style={{ position: 'relative', width: '60%', paddingBottom: '50px', zIndex: 0}}>
-      <Typography variant="h4" style={{ textAlign: 'left', paddingBottom: '20px' }} className={righteous.className}>
+      <Typography variant="h4" style={{ textAlign: 'left', paddingBottom: '20px', ...righteous.style}}>
         {headingText}
       </Typography>
       <Swiper

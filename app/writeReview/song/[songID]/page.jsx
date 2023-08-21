@@ -81,7 +81,7 @@ const WriteReview = () => {
             <Typography
               variant="h4"
               sx={{ alignSelf: 'flex-start', maxWidth: '100%' }}
-              className={righteous.className}
+              style={righteous.style}
             >
               {songData ? songData.name : ''}
             </Typography>
