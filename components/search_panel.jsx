@@ -35,10 +35,9 @@ const SearchPanel = ({ id, imageUrl, tooltipText, artist, year, type }) => {
 
   const getTruncationLength = () => {
     const screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-    if (screenWidth <= 600){
+    if (screenWidth <= 600) {
       return 20;
-    }
-    else{
+    } else {
       return 45;
     }
   };
@@ -72,10 +71,13 @@ const SearchPanel = ({ id, imageUrl, tooltipText, artist, year, type }) => {
   };
 
   const handleTouchEnd = () => {
-    if (tapCount === 2) {
+    if (tapCount === 1) {
+      setIsHovered(true);
+    } else if (tapCount === 2) {
+      setIsHovered(false);
       handleModalOpen();
-      setTapCount(0);
     }
+    setTapCount(0);
   };
 
   return (
