@@ -68,6 +68,8 @@ const SearchPanel = ({ id, imageUrl, tooltipText, artist, year, type }) => {
     }
 
     lastTapTime.current = currentTime;
+
+    setIsHovered(false);
   };
 
   const handleTouchEnd = () => {
@@ -225,7 +227,7 @@ const SearchPanel = ({ id, imageUrl, tooltipText, artist, year, type }) => {
                       const URL = "/writeReview/song/" + id;
                       handleClick(URL);
                     } else if (type === 'Artist') {
-                      // Handle artist navigation if needed
+                      
                     }
                   }}
                   sx={{

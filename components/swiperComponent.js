@@ -11,34 +11,29 @@ const righteous = Righteous({
 
 const SwiperComponent = ({ searchPanels, headingText }) => {
   const [swiperConfig, setSwiperConfig] = useState({
-    spaceBetween: 20, // Default space between slides
-    slidesPerView: 1, // Default number of slides per view
+    spaceBetween: 20,
+    slidesPerView: 1,
   });
 
   useEffect(() => {
-    // Function to update Swiper configuration based on screen width
     const updateSwiperConfig = () => {
       const screenWidth = window.innerWidth;
-      const desiredAspectRatio = 16 / 9; // Aspect ratio of 1536 x 864
+      const desiredAspectRatio = 16 / 9;
 
-      // Calculate the number of slides per view based on the screen width and desired aspect ratio
-      const calculatedSlidesPerView = Math.floor(screenWidth / (200 * desiredAspectRatio)); // Adjust 200 to your desired slide width
+      const calculatedSlidesPerView = Math.floor(screenWidth / (200 * desiredAspectRatio));
 
       const newConfig = {
-        spaceBetween: calculatedSlidesPerView > 1 ? 20 : 0, // Adjust space between slides
+        spaceBetween: calculatedSlidesPerView > 1 ? 20 : 0,
         slidesPerView: calculatedSlidesPerView,
       };
 
       setSwiperConfig(newConfig);
     };
 
-    // Add a window resize event listener to dynamically update the configuration
     window.addEventListener('resize', updateSwiperConfig);
 
-    // Initial configuration based on the current screen width
     updateSwiperConfig();
 
-    // Remove the event listener when the component unmounts
     return () => {
       window.removeEventListener('resize', updateSwiperConfig);
     };
