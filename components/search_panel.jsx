@@ -14,6 +14,8 @@ const SearchPanel = ({ id, imageUrl, tooltipText, artist, year, type }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [tapCount, setTapCount] = useState(0);
   const lastTapTime = useRef(0);
+  const touchStartTimestamp = useRef(0);
+  const longPressDelay = 500;
 
   const router = useRouter();
 
@@ -69,15 +71,22 @@ const SearchPanel = ({ id, imageUrl, tooltipText, artist, year, type }) => {
 
     lastTapTime.current = currentTime;
 
-    setIsHovered(false);
+    touchStartTimestamp.current = currentTime;
   };
 
   const handleTouchEnd = () => {
-    if (tapCount === 1) {
-      setIsHovered(true);
-    } else if (tapCount === 2) {
+    const currentTime = new Date().getTime();
+    const timeSinceTouchStart = currentTime - touchStartTimestamp.current;
+
+    if (timeSinceTouchStart < longPressDelay) {
+      if (tapCount === 1) {
+        setIsHovered(true);
+      } else if (tapCount === 2) {
+        setIsHovered(false);
+        handleModalOpen();
+      }
+    } else {
       setIsHovered(false);
-      handleModalOpen();
     }
     setTapCount(0);
   };
@@ -141,39 +150,35 @@ const SearchPanel = ({ id, imageUrl, tooltipText, artist, year, type }) => {
         </div>
       )}
 
-      <Modal
-        open={isModalOpen}
-        onClose={handleModalClose}
-      >
+      <Modal open={isModalOpen} onClose={handleModalClose}>
         <Box sx={modalStyle}>
           <Grid container spacing={2}>
-
             <Grid item xs={12} md={6} sx={{ display: 'flex', justifyContent: 'center' }}>
-                <Box
-                  sx={{
-                    width: '90%',
-                    height: '90%',
-                    backgroundColor: 'white',
+              <Box
+                sx={{
+                  width: '90%',
+                  height: '90%',
+                  backgroundColor: 'white',
+                  borderRadius: '10px',
+                  border: '1px solid rgb(18, 34, 51)',
+                  boxShadow: '10px 10px 0 0 rgb(18, 34, 51)',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  marginBottom: '20px',
+                }}
+              >
+                <img
+                  src={getImageUrl()}
+                  alt="Image"
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
                     borderRadius: '10px',
-                    border: '1px solid rgb(18, 34, 51)',
-                    boxShadow: '10px 10px 0 0 rgb(18, 34, 51)',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    marginBottom: '20px',
                   }}
-                >
-                  <img
-                    src={getImageUrl()}
-                    alt="Image"
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      objectFit: 'cover',
-                      borderRadius: '10px',
-                    }}
-                  />
-                </Box>
+                />
+              </Box>
             </Grid>
 
             <Grid item xs={12} md={6}>
@@ -190,7 +195,7 @@ const SearchPanel = ({ id, imageUrl, tooltipText, artist, year, type }) => {
                 {truncatedModalTooltipText}
               </Typography>
 
-              {type !== "Artist" && (
+              {type !== 'Artist' && (
                 <div>
                   <Typography
                     variant="h6"
@@ -224,10 +229,10 @@ const SearchPanel = ({ id, imageUrl, tooltipText, artist, year, type }) => {
                   variant="outlined"
                   onClick={() => {
                     if (type === 'Song') {
-                      const URL = "/writeReview/song/" + id;
+                      const URL = '/writeReview/song/' + id;
                       handleClick(URL);
                     } else if (type === 'Artist') {
-                      
+                      // Handle Artist click
                     }
                   }}
                   sx={{
@@ -246,7 +251,7 @@ const SearchPanel = ({ id, imageUrl, tooltipText, artist, year, type }) => {
                     },
                   }}
                 >
-                  {type !== "Artist" ? "Write Review" : "View Artist"}
+                  {type !== 'Artist' ? 'Write Review' : 'View Artist'}
                 </Button>
               </div>
             </Grid>
