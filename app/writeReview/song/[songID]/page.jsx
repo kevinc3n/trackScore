@@ -2,17 +2,34 @@
 import React, { useEffect, useState } from 'react';
 import Typography from '@mui/material/Typography';
 import { Righteous } from '@next/font/google';
+import { Poppins } from '@next/font/google';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { getSong } from '../../../../api/spotify.js';
 import { useParams } from 'next/navigation';
 import Button from '@mui/material/Button';
 import ReviewBox from '../../../../components/review_box.jsx';
+import PersonIcon from '@mui/icons-material/Person';
+import EventIcon from '@mui/icons-material/Event';
 
 const righteous = Righteous({
   subsets: ['latin'],
   weight: '400',
 });
+
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: '600',
+});
+
+const formatDate = (dateString) => {
+  if (!dateString) return '';
+
+  const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+  const formattedDate = new Date(dateString).toLocaleDateString(undefined, options);
+
+  return formattedDate;
+};
 
 const WriteReview = () => {
   const params = useParams();
@@ -31,6 +48,8 @@ const WriteReview = () => {
         });
     }
   }, [songID]);
+
+  const formattedReleaseDate = formatDate(songData?.album?.release_date);
 
   return (
     <div>
@@ -86,15 +105,24 @@ const WriteReview = () => {
               {songData ? songData.name : ''}
             </Typography>
 
-            <Typography variant="h5" sx={{paddingTop: '20px', fontFamily: 'Poppins, sans-serif',}}>
-              By: {songData && songData.artists
-                ? songData.artists.map((artist) => artist.name).join(', ')
-                : ''}
+            <Typography variant="h5" sx={{paddingTop: '0px', fontFamily: 'Poppins, sans-serif', color: '#faa13c'}}>
+              Song
             </Typography>
 
-            <Typography variant="h5" sx={{fontFamily: 'Poppins, sans-serif',}}>
-              Released: {songData && songData.album?.release_date.slice(0, 4) ? songData.album?.release_date.slice(0, 4) : ''}
-            </Typography>
+            <div>
+              <Typography variant="h5" sx={{ paddingTop: '20px', ...poppins.style }}>
+                <PersonIcon sx={{ marginRight: '4px' }} />
+                {songData && songData.artists
+                  ? songData.artists.map((artist) => artist.name).join(', ')
+                  : ''}
+              </Typography>
+            </div>
+
+            <div>
+              <Typography variant="h5" sx={{ ...poppins.style }}>
+                <EventIcon sx={{ marginRight: '4px' }} /> {formattedReleaseDate}
+              </Typography>
+            </div>
             
             <Button
               component="a"
@@ -104,7 +132,6 @@ const WriteReview = () => {
               variant="outlined"
               sx={{
                 marginTop: '20px',
-                fontFamily: 'Poppins, sans-serif',
                 fontSize: '16px',
                 color: 'rgb(18, 34, 51)',
                 borderRadius: '10px',
@@ -115,6 +142,7 @@ const WriteReview = () => {
                   color: 'white',
                   backgroundColor: 'rgb(255,159,0)',
                 },
+                ...poppins.style,
               }}
             >
               Listen on Spotify

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Typography from '@mui/material/Typography';
 import { Righteous } from '@next/font/google';
+import { Poppins } from '@next/font/google';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -8,6 +9,11 @@ import Button from '@mui/material/Button';
 const righteous = Righteous({
   subsets: ['latin'],
   weight: '400',
+});
+
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: '700',
 });
 
 const ReviewBox = () => {
@@ -51,16 +57,10 @@ const ReviewBox = () => {
         variant="outlined"
         fullWidth
         InputProps={{
-          sx: {
-            fontFamily: 'Poppins, sans-serif',
-            fontSize: '20px',
-          },
+          style: { ...poppins.style, fontSize: '20px' },
         }}
         InputLabelProps={{
-          sx: {
-            fontFamily: 'Poppins, sans-serif',
-            fontSize: '20px',
-          },
+          style: { ...poppins.style, fontSize: '20px' },
         }}
         sx={{
           marginTop: '20px',
@@ -115,7 +115,6 @@ const ReviewBox = () => {
           sx={{
             width: '200px',
             height: '50px',
-            fontFamily: 'Poppins, sans-serif',
             fontSize: '16px',
             color: 'rgb(18, 34, 51)',
             borderRadius: '10px',
@@ -126,6 +125,7 @@ const ReviewBox = () => {
               color: 'white',
               backgroundColor: 'rgb(255,159,0)',
             },
+            ...poppins.style,
           }}
         >
           Submit Review

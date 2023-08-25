@@ -26,7 +26,7 @@ const Navbar = () => {
   };
 
   return (
-    <div style={{ position: 'sticky', top: 0, zIndex: 1 }}>
+    <div style={{ position: 'sticky', top: 0, zIndex: 1200 }}>
         <AppBar
         position="static"
         sx={{
