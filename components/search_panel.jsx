@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { Box, Typography, Modal, Grid } from '@mui/material';
 import { Righteous } from '@next/font/google';
 import Button from '@mui/material/Button';
@@ -12,10 +12,6 @@ const righteous = Righteous({
 const SearchPanel = ({ id, imageUrl, tooltipText, artist, year, type }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [tapCount, setTapCount] = useState(0);
-  const lastTapTime = useRef(0);
-  const touchStartTimestamp = useRef(0);
-  const longPressDelay = 500;
 
   const router = useRouter();
 
@@ -24,15 +20,20 @@ const SearchPanel = ({ id, imageUrl, tooltipText, artist, year, type }) => {
   };
 
   const handleMouseEnter = () => setIsHovered(true);
+
   const handleMouseLeave = () => setIsHovered(false);
+
   const handleModalOpen = () => setIsModalOpen(true);
+
   const handleModalClose = () => {
     setIsModalOpen(false);
     setIsHovered(false);
   };
 
   const defaultImageUrl = '/images/no_image.png';
+
   const getImageUrl = () => imageUrl || defaultImageUrl;
+
   const truncatedTooltipText = tooltipText.length > 30 ? tooltipText.substring(0, 30) + '...' : tooltipText;
 
   const getTruncationLength = () => {
@@ -59,38 +60,6 @@ const SearchPanel = ({ id, imageUrl, tooltipText, artist, year, type }) => {
     p: 4,
   };
 
-  const handleTouchStart = () => {
-    const currentTime = new Date().getTime();
-    const timeSinceLastTap = currentTime - lastTapTime.current;
-
-    if (timeSinceLastTap < 300) {
-      setTapCount(tapCount + 1);
-    } else {
-      setTapCount(1);
-    }
-
-    lastTapTime.current = currentTime;
-
-    touchStartTimestamp.current = currentTime;
-  };
-
-  const handleTouchEnd = () => {
-    const currentTime = new Date().getTime();
-    const timeSinceTouchStart = currentTime - touchStartTimestamp.current;
-
-    if (timeSinceTouchStart < longPressDelay) {
-      if (tapCount === 1) {
-        setIsHovered(true);
-      } else if (tapCount === 2) {
-        setIsHovered(false);
-        handleModalOpen();
-      }
-    } else {
-      setIsHovered(false);
-    }
-    setTapCount(0);
-  };
-
   return (
     <Box
       sx={{
@@ -104,8 +73,6 @@ const SearchPanel = ({ id, imageUrl, tooltipText, artist, year, type }) => {
       }}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      onTouchStart={handleTouchStart}
-      onTouchEnd={handleTouchEnd}
     >
       <img
         src={getImageUrl()}
@@ -150,35 +117,39 @@ const SearchPanel = ({ id, imageUrl, tooltipText, artist, year, type }) => {
         </div>
       )}
 
-      <Modal open={isModalOpen} onClose={handleModalClose}>
+      <Modal
+        open={isModalOpen}
+        onClose={handleModalClose}
+      >
         <Box sx={modalStyle}>
           <Grid container spacing={2}>
+
             <Grid item xs={12} md={6} sx={{ display: 'flex', justifyContent: 'center' }}>
-              <Box
-                sx={{
-                  width: '90%',
-                  height: '90%',
-                  backgroundColor: 'white',
-                  borderRadius: '10px',
-                  border: '1px solid rgb(18, 34, 51)',
-                  boxShadow: '10px 10px 0 0 rgb(18, 34, 51)',
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  marginBottom: '20px',
-                }}
-              >
-                <img
-                  src={getImageUrl()}
-                  alt="Image"
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
+                <Box
+                  sx={{
+                    width: '90%',
+                    height: '90%',
+                    backgroundColor: 'white',
                     borderRadius: '10px',
+                    border: '1px solid rgb(18, 34, 51)',
+                    boxShadow: '10px 10px 0 0 rgb(18, 34, 51)',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    marginBottom: '20px',
                   }}
-                />
-              </Box>
+                >
+                  <img
+                    src={getImageUrl()}
+                    alt="Image"
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      borderRadius: '10px',
+                    }}
+                  />
+                </Box>
             </Grid>
 
             <Grid item xs={12} md={6}>
@@ -195,7 +166,7 @@ const SearchPanel = ({ id, imageUrl, tooltipText, artist, year, type }) => {
                 {truncatedModalTooltipText}
               </Typography>
 
-              {type !== 'Artist' && (
+              {type !== "Artist" && (
                 <div>
                   <Typography
                     variant="h6"
@@ -229,10 +200,10 @@ const SearchPanel = ({ id, imageUrl, tooltipText, artist, year, type }) => {
                   variant="outlined"
                   onClick={() => {
                     if (type === 'Song') {
-                      const URL = '/writeReview/song/' + id;
+                      const URL = "/writeReview/song/" + id;
                       handleClick(URL);
                     } else if (type === 'Artist') {
-                      // Handle Artist click
+                      
                     }
                   }}
                   sx={{
@@ -251,7 +222,7 @@ const SearchPanel = ({ id, imageUrl, tooltipText, artist, year, type }) => {
                     },
                   }}
                 >
-                  {type !== 'Artist' ? 'Write Review' : 'View Artist'}
+                  {type !== "Artist" ? "Write Review" : "View Artist"}
                 </Button>
               </div>
             </Grid>
