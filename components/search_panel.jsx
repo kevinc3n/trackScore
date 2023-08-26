@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Box, Typography, Modal, Grid } from '@mui/material';
 import { Righteous } from '@next/font/google';
 import Button from '@mui/material/Button';
@@ -10,7 +10,6 @@ const righteous = Righteous({
 });
 
 const SearchPanel = ({ id, imageUrl, tooltipText, artist, year, type }) => {
-  const [isHovered, setIsHovered] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const router = useRouter();
@@ -19,21 +18,11 @@ const SearchPanel = ({ id, imageUrl, tooltipText, artist, year, type }) => {
     router.push(route);
   };
 
-  const handleMouseEnter = () => setIsHovered(true);
-
-  const handleMouseLeave = () => setIsHovered(false);
-
   const handleModalOpen = () => setIsModalOpen(true);
-
-  const handleModalClose = () => {
-    setIsModalOpen(false);
-    setIsHovered(false);
-  };
+  const handleModalClose = () => setIsModalOpen(false);
 
   const defaultImageUrl = '/images/no_image.png';
-
   const getImageUrl = () => imageUrl || defaultImageUrl;
-
   const truncatedTooltipText = tooltipText.length > 30 ? tooltipText.substring(0, 30) + '...' : tooltipText;
 
   const getTruncationLength = () => {
@@ -60,6 +49,10 @@ const SearchPanel = ({ id, imageUrl, tooltipText, artist, year, type }) => {
     p: 4,
   };
 
+  const handleTouchEnd = () => {
+      handleModalOpen();
+  };
+
   return (
     <Box
       sx={{
@@ -71,8 +64,7 @@ const SearchPanel = ({ id, imageUrl, tooltipText, artist, year, type }) => {
         boxShadow: '10px 10px 0 0 rgb(18, 34, 51)',
         overflow: 'hidden',
       }}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+      onTouchEnd={handleTouchEnd}
     >
       <img
         src={getImageUrl()}
@@ -84,38 +76,36 @@ const SearchPanel = ({ id, imageUrl, tooltipText, artist, year, type }) => {
           borderRadius: '10px',
         }}
       />
-      {isHovered && (
-        <div
-          onClick={handleModalOpen}
+      <div
+        onClick={handleModalOpen}
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          backgroundColor: 'rgba(0, 0, 0, 0.4)',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          flexDirection: 'column',
+          borderRadius: '10px',
+        }}
+      >
+        <p
           style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            backgroundColor: 'rgba(0, 0, 0, 0.5)',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            flexDirection: 'column',
-            borderRadius: '10px',
+            color: 'white',
+            fontSize: '16px',
+            textAlign: 'center',
+            margin: '0',
+            padding: '10px',
+            fontFamily: 'Poppins, sans-serif',
+            userSelect: 'none',
           }}
         >
-          <p
-            style={{
-              color: 'white',
-              fontSize: '16px',
-              textAlign: 'center',
-              margin: '0',
-              padding: '10px',
-              fontFamily: 'Poppins, sans-serif',
-              userSelect: 'none',
-            }}
-          >
-            {truncatedTooltipText}
-          </p>
-        </div>
-      )}
+          {truncatedTooltipText}
+        </p>
+      </div>
 
       <Modal
         open={isModalOpen}
