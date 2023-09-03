@@ -14,6 +14,19 @@ const SwiperComponent = ({ searchPanels, headingText }) => {
     spaceBetween: 20,
     slidesPerView: 1,
   });
+  
+  const handleSlideChange = () => {
+    console.log("hi");
+    
+    
+    const updatedPanels = searchPanels.map((searchPanel) => ({
+      ...searchPanel,
+      isSlideChanging: "True",
+    }));
+    
+  
+    setSearchPanels(updatedPanels);
+  };
 
   useEffect(() => {
     const updateSwiperConfig = () => {
@@ -39,28 +52,6 @@ const SwiperComponent = ({ searchPanels, headingText }) => {
     };
   }, []);
 
-  const preventScrolling = (e) => {
-    e.preventDefault();
-  };
-
-  useEffect(() => {
-    const swiperElement = document.querySelector('.swiper-container');
-
-    if (swiperElement) {
-      swiperElement.addEventListener('touchstart', preventScrolling, { passive: false });
-      swiperElement.addEventListener('touchmove', preventScrolling, { passive: false });
-      swiperElement.addEventListener('touchend', preventScrolling, { passive: false });
-    }
-
-    return () => {
-      if (swiperElement) {
-        swiperElement.removeEventListener('touchstart', preventScrolling);
-        swiperElement.removeEventListener('touchmove', preventScrolling);
-        swiperElement.removeEventListener('touchend', preventScrolling);
-      }
-    };
-  }, []);
-
   return (
     <div style={{ position: 'relative', width: '60%', paddingBottom: '50px', zIndex: 0 }}>
       <Typography variant="h4" style={{ textAlign: 'left', paddingBottom: '20px', ...righteous.style }}>
@@ -70,7 +61,7 @@ const SwiperComponent = ({ searchPanels, headingText }) => {
         spaceBetween={swiperConfig.spaceBetween}
         slidesPerView={swiperConfig.slidesPerView}
         slidesPerColumn={1}
-        onSlideChange={() => console.log('slide change')}
+        onSlideChange={handleSlideChange()}
         onSwiper={(swiper) => console.log(swiper)}
         style={{ height: '160px' }}
       >

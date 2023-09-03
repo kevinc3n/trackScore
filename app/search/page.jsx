@@ -130,19 +130,19 @@ function SearchBar() {
 
       {songs.length > 0 && (
         <SwiperComponent searchPanels={songs.map((song) => (
-          <SearchPanel id={song.id} imageUrl={song.imageUrl} tooltipText={song.name} artist={song.artist} year={song.year} type={"Song"}/>
+          <SearchPanel id={song.id} imageUrl={song.imageUrl} tooltipText={song.name} artist={song.artist} year={song.year} type={"Song"} isSlideChanging={"False"}/>
         ))} headingText="SONGS" />
       )}
 
       {albums.length > 0 && (
         <SwiperComponent searchPanels={albums.map((album) => (
-          <SearchPanel id={album.id} imageUrl={album.imageUrl} tooltipText={album.name} artist={album.artist} year={album.year} type={"Album"}/>
+          <SearchPanel id={album.id} imageUrl={album.imageUrl} tooltipText={album.name} artist={album.artist} year={album.year} type={"Album"} isSlideChanging={"False"}/>
         ))} headingText="ALBUMS" />
       )}
 
       {artists.length > 0 && (
         <SwiperComponent searchPanels={artists.map((artist) => (
-          <SearchPanel id={artist.id} imageUrl={artist.imageUrl} tooltipText={artist.name} artist={"NULL"} year={"NULL"} type={"Artist"}/>
+          <SearchPanel id={artist.id} imageUrl={artist.imageUrl} tooltipText={artist.name} artist={"NULL"} year={"NULL"} type={"Artist"} isSlideChanging={"False"}/>
         ))} headingText="ARTISTS" />
       )}
     </div>
