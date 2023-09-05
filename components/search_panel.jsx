@@ -75,28 +75,29 @@ const SearchPanel = ({ id, imageUrl, tooltipText, artist, year, type, isSlideCha
   };
 
   const handleTouchEnd = () => {
-    const currentTime = new Date().getTime();
-    const timeSinceTouchStart = currentTime - touchStartTimestamp.current;
-
-    if (timeSinceTouchStart < longPressDelay) {
-      if (tapCount === 1) {
-        setIsHovered(true);
-      } else if (tapCount === 2) {
+      console.log(isSlideChanging);
+      const currentTime = new Date().getTime();
+      const timeSinceTouchStart = currentTime - touchStartTimestamp.current;
+  
+      if (timeSinceTouchStart < longPressDelay) {
+        if (tapCount === 1) {
+          setIsHovered(true);
+        } else if (tapCount === 2) {
+          setIsHovered(false);
+          handleModalOpen();
+        }
+      } else {
         setIsHovered(false);
-        handleModalOpen();
       }
-    } else {
-      setIsHovered(false);
-    }
-    setTapCount(0);
+      setTapCount(0);   
 
-    console.log(isSlideChanging);
-    if (isSlideChanging == 'True') {
-      console.log("here");
+    if (isSlideChanging == true) {
+      console.log("LOOK");
       setIsHovered(false);
       setTimeout(() => {
         isSlideChanging = false;
-      }, 10000);
+          console.log("now it is " + isSlideChanging);
+      }, 100);
     }
   };
 

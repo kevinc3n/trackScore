@@ -3,6 +3,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import { Righteous } from '@next/font/google';
 import Typography from '@mui/material/Typography';
+import SearchPanel from '../components/search_panel.jsx';
 
 const righteous = Righteous({
   subsets: ['latin'],
@@ -14,19 +15,35 @@ const SwiperComponent = ({ searchPanels, headingText }) => {
     spaceBetween: 20,
     slidesPerView: 1,
   });
-  
+
+  const [updatedSearchPanels, setUpdatedSearchPanels] = useState(searchPanels);
+
   const handleSlideChange = () => {
-    console.log("hi");
-    
-    
-    const updatedPanels = searchPanels.map((searchPanel) => ({
-      ...searchPanel,
-      isSlideChanging: "True",
-    }));
-    
+    console.log("detected slide change and it handling");
   
-    setSearchPanels(updatedPanels);
+    const updatedPanels = updatedSearchPanels.map((searchPanel) => ({
+      ...searchPanel,
+      props: {
+        ...searchPanel.props,
+        isSlideChanging: true,
+      },
+    }));
+  
+    setUpdatedSearchPanels(updatedPanels);
+  
+    setTimeout(() => {
+      const resetPanels = updatedPanels.map((searchPanel) => ({
+        ...searchPanel,
+        props: {
+          ...searchPanel.props,
+          isSlideChanging: false,
+        },
+      }));
+  
+      setUpdatedSearchPanels(resetPanels);
+    }, 100);
   };
+  
 
   useEffect(() => {
     const updateSwiperConfig = () => {
@@ -61,12 +78,21 @@ const SwiperComponent = ({ searchPanels, headingText }) => {
         spaceBetween={swiperConfig.spaceBetween}
         slidesPerView={swiperConfig.slidesPerView}
         slidesPerColumn={1}
-        onSlideChange={handleSlideChange()}
-        onSwiper={(swiper) => console.log(swiper)}
+        onSlideChange={() => handleSlideChange()}
         style={{ height: '160px' }}
       >
-        {searchPanels.map((searchPanel, index) => (
-          <SwiperSlide key={index}>{searchPanel}</SwiperSlide>
+        {updatedSearchPanels.map((searchPanel, index) => (
+          <SwiperSlide key={index}>
+            <SearchPanel
+              id={searchPanel.props.id}
+              imageUrl={searchPanel.props.imageUrl}
+              tooltipText={searchPanel.props.tooltipText}
+              artist={searchPanel.props.artist}
+              year={searchPanel.props.year}
+              type={searchPanel.props.type}
+              isSlideChanging={searchPanel.props.isSlideChanging}
+            />
+          </SwiperSlide>
         ))}
       </Swiper>
     </div>
