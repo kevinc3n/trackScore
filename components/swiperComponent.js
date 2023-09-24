@@ -17,33 +17,7 @@ const SwiperComponent = ({ searchPanels, headingText }) => {
   });
 
   const [updatedSearchPanels, setUpdatedSearchPanels] = useState(searchPanels);
-
-  const handleSlideChange = () => {
-    console.log("detected slide change and it handling");
-  
-    const updatedPanels = updatedSearchPanels.map((searchPanel) => ({
-      ...searchPanel,
-      props: {
-        ...searchPanel.props,
-        isSlideChanging: true,
-      },
-    }));
-  
-    setUpdatedSearchPanels(updatedPanels);
-  
-    setTimeout(() => {
-      const resetPanels = updatedPanels.map((searchPanel) => ({
-        ...searchPanel,
-        props: {
-          ...searchPanel.props,
-          isSlideChanging: false,
-        },
-      }));
-  
-      setUpdatedSearchPanels(resetPanels);
-    }, 100);
-  };
-  
+  const [useUpdatedSearchPanels, setUseUpdatedSearchPanels] = useState(false);
 
   useEffect(() => {
     const updateSwiperConfig = () => {
@@ -69,6 +43,37 @@ const SwiperComponent = ({ searchPanels, headingText }) => {
     };
   }, []);
 
+  const handleSlideChange = () => {
+    console.log("detected slide change and it handling");
+  
+    const updatedPanels = searchPanels.map((searchPanel) => ({
+      ...searchPanel,
+      props: {
+        ...searchPanel.props,
+        isSlideChanging: true,
+      },
+    }));
+  
+    setUpdatedSearchPanels(updatedPanels);
+    setUseUpdatedSearchPanels(true);
+  
+    setTimeout(() => {
+      const resetPanels = updatedPanels.map((searchPanel) => ({
+        ...searchPanel,
+        props: {
+          ...searchPanel.props,
+          isSlideChanging: false,
+        },
+      }));
+  
+      setUpdatedSearchPanels(resetPanels);
+      setUseUpdatedSearchPanels(false);
+      console.log("NO LONGER USING UPDATED")
+    }, 100);
+  };
+
+  const panelsToRender = useUpdatedSearchPanels ? updatedSearchPanels : searchPanels;
+
   return (
     <div style={{ position: 'relative', width: '60%', paddingBottom: '50px', zIndex: 0 }}>
       <Typography variant="h4" style={{ textAlign: 'left', paddingBottom: '20px', ...righteous.style }}>
@@ -81,7 +86,7 @@ const SwiperComponent = ({ searchPanels, headingText }) => {
         onSlideChange={() => handleSlideChange()}
         style={{ height: '160px' }}
       >
-        {updatedSearchPanels.map((searchPanel, index) => (
+        {panelsToRender.map((searchPanel, index) => (
           <SwiperSlide key={index}>
             <SearchPanel
               id={searchPanel.props.id}

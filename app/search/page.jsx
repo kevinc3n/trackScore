@@ -25,7 +25,7 @@ function SearchBar() {
     if (inputValue) {
       try {
         const searchResults = await searchSpotify(inputValue);
-        console.log('START OF SEARCH RESULTS');
+        console.log('START OF SEARCH RESULTS FOR ' + inputValue);
 
         if (searchResults.tracks?.items) {
           console.log('Songs:');
