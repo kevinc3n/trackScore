@@ -6,8 +6,14 @@ import SearchIcon from '@mui/icons-material/Search';
 import SearchPanel from '../../components/search_panel.jsx';
 import SwiperComponent from '../../components/swiperComponent.js';
 import { searchSpotify } from '../../api/spotify.js';
+import { Poppins } from '@next/font/google';
 
 const righteous = Righteous({
+  subsets: ['latin'],
+  weight: '400',
+});
+
+const poppins = Poppins({
   subsets: ['latin'],
   weight: '400',
 });
@@ -123,7 +129,7 @@ function SearchBar() {
             borderRadius: '10px',
             border: '1px solid rgb(18, 34, 51)',
             boxShadow: '10px 10px 0 0 rgb(18, 34, 51)',
-            fontFamily: 'Poppins, sans-serif',
+            ...poppins.style,
           }}
         />
       </div>

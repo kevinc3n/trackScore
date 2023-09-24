@@ -3,8 +3,14 @@ import { Box, Typography, Modal, Grid } from '@mui/material';
 import { Righteous } from '@next/font/google';
 import Button from '@mui/material/Button';
 import { useRouter } from 'next/navigation';
+import { Poppins } from '@next/font/google';
 
 const righteous = Righteous({
+  subsets: ['latin'],
+  weight: '400',
+});
+
+const poppins = Poppins({
   subsets: ['latin'],
   weight: '400',
 });
@@ -151,7 +157,7 @@ const SearchPanel = ({ id, imageUrl, tooltipText, artist, year, type, isSlideCha
               textAlign: 'center',
               margin: '0',
               padding: '10px',
-              fontFamily: 'Poppins, sans-serif',
+              ...poppins.style,
               userSelect: 'none',
             }}
           >
@@ -212,7 +218,7 @@ const SearchPanel = ({ id, imageUrl, tooltipText, artist, year, type, isSlideCha
                     sx={{
                       color: 'rgb(18, 34, 51)',
                       marginTop: '10px',
-                      fontFamily: 'Poppins, sans-serif',
+                      ...poppins.style,
                       overflow: 'hidden',
                       textOverflow: 'ellipsis',
                       whiteSpace: 'nowrap',
@@ -225,7 +231,7 @@ const SearchPanel = ({ id, imageUrl, tooltipText, artist, year, type, isSlideCha
                     variant="h6"
                     sx={{
                       color: 'rgb(18, 34, 51)',
-                      fontFamily: 'Poppins, sans-serif',
+                      ...poppins.style,
                       fontSize: '1rem',
                     }}
                   >
@@ -248,7 +254,7 @@ const SearchPanel = ({ id, imageUrl, tooltipText, artist, year, type, isSlideCha
                   sx={{
                     marginTop: '10px',
                     marginBottom: '10px',
-                    fontFamily: 'Poppins, sans-serif',
+                    ...poppins.style,
                     fontSize: '16px',
                     color: 'rgb(18, 34, 51)',
                     borderRadius: '10px',

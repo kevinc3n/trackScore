@@ -105,7 +105,7 @@ const WriteReview = () => {
               {songData ? songData.name : ''}
             </Typography>
 
-            <Typography variant="h5" sx={{paddingTop: '0px', fontFamily: 'Poppins, sans-serif', color: '#faa13c'}}>
+            <Typography variant="h5" sx={{ paddingTop: '0px', ...poppins.style, color: '#faa13c' }}>
               Song
             </Typography>
 
